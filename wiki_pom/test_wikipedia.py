@@ -18,7 +18,7 @@ class TestHomePage(unittest.TestCase):
 		self.driver.implicitly_wait(5)
 
 	def tearDown(self):
-		time.sleep(5)
+		time.sleep(1)  # why?
 		self.driver.quit()
 
 	#@unittest.skip('')
@@ -34,14 +34,14 @@ class TestHomePage(unittest.TestCase):
 		home.enterSearchKeywords("Buster Keaton")
 		home.submitSearch()
 
-		# Does the resulting page have the correct header & title
+		# check the resulting page has the correct header & title
 		article = pages.ArticlePage(self.driver)
 		s = article.getPageTitle()
 		self.assertTrue(re.search("^Buster Keaton.*", s), 
-			"Page title '{}' does not start with search term".format(s))
+			"Page title '{0}' does not start with search term".format(s))
 		s = article.getCurrentUrl()
 		self.assertTrue(re.search(".*Buster_Keaton$", s), 
-			"URL '{}'  does not end with search term".format(s))
+			"URL '{0}'  does not end with search term".format(s))
 		self.assertEqual(article.getArticleHeader(), "Buster Keaton")
 
 	#@unittest.skip('')
@@ -51,14 +51,14 @@ class TestHomePage(unittest.TestCase):
 		main.enterSearchKeywords("Disneyland")
 		main.submitSearch()
 
-		# Does the resulting page have the correct header & title
+		# check the resulting page has the correct header & title
 		article = pages.ArticlePage(self.driver)
 		s = article.getPageTitle()
 		self.assertTrue(re.search("^Disneyland.*", s), 
-			"Page title '{}' is unexpected".format(s))
+			"Page title '{0}' is unexpected".format(s))
 		s = article.getCurrentUrl()
 		self.assertTrue(re.search(".*Disneyland$", s), 
-			"URL '{}'  is unexpected".format(s))
+			"URL '{0}'  is unexpected".format(s))
 		self.assertEqual(article.getArticleHeader(), "Disneyland")
 
 	#@unittest.skip('')
@@ -71,10 +71,10 @@ class TestHomePage(unittest.TestCase):
 			titles.append(suggestion['title'])
 		self.assertIn("Douglas MacArthur", titles)
 		self.assertIn("Double bass", titles)
-		self.assertNotIn("Dodo", titles)  # appears in suggestions fo 'do'
+		self.assertNotIn("Dodo", titles)  # appears in suggestions for 'do'
 
-		time.sleep(1)  # pause before adding more charaters
-		main.enterSearchKeywords("glas") # to make 'douglas'
+		main.enterSearchKeywords("glas") # complete 'douglas'
+		time.sleep(.5)  # pause while list updates
 		titles = []
 		for suggestion in main.getSearchSuggestions():
 			titles.append(suggestion['title'])
@@ -93,8 +93,8 @@ class TestHomePage(unittest.TestCase):
 		self.assertIn("Busta Rhymes", titles)
 		self.assertIn("Buster Posey", titles)
 		
-		time.sleep(1)  # pause before adding more characters
-		home.enterSearchKeywords("er")  # to make 'buster'
+		home.enterSearchKeywords("er")  # complete 'buster'
+		time.sleep(.5)  # pause while list updates
 		suggestions = home.getSearchSuggestions()
 
 		titles = []
