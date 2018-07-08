@@ -3,7 +3,7 @@ from family_tree import *
 
 
 my_tree = Tree()
-print 'Add People'
+print('Add People')
 #1
 tj  = my_tree.add_person({'first_name': "Truman", 'last_name': "Smith", 'suffix': "Jr", 'sex': "M", 'birth_date': "1958-10-07"})
 #2
@@ -23,4 +23,4 @@ mrs = my_tree.add_person({'first_name': "Macielynn", 'middle_name': "R", 'last_n
 #9
 eds = my_tree.add_person({'first_name': "Emmalee", 'middle_name': "D", 'last_name': "Smith", 'sex': "F"})
 
-print my_tree.inspect_people()
+print(my_tree.inspect_people())

@@ -8,7 +8,7 @@ class WikiTest(unittest.TestCase):
 		print("class setup")
 
 	def setUp(self):
-		self.driver = webdriver.Firefox()
+		self.driver = webdriver.Firefox(executable_path='browser_drivers/geckodriver')
 
 	def test_title(self):
 		self.driver.get("https://wikipedia.org")

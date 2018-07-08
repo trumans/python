@@ -7,7 +7,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 
 def init_driver():
-	driver = webdriver.Chrome() #webdriver.Firefox()
+	driver = webdriver.Chrome(executable_path='/selenium_browser_drivers/chromedriver')
+	#driver =  webdriver.Firefox(executable_path='selenium_browser_drivers/geckodriver')
 	driver.wait = WebDriverWait(driver, 5)
 	return driver
 

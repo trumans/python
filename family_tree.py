@@ -35,7 +35,7 @@ class Tree:
 
 	def update_person(person_id, attributes):
 		if not self.people.has_key(person_id):
-			print "warning: no update to %s invalid person id." % person_id
+			print("warning: no update to %s invalid person id." % person_id)
 		else:
 			self.people[person_id].update(attributes)
 			###update_parents(person_id, attributes)
@@ -75,11 +75,11 @@ class Person:
 	
 
 	def update(vals):
- 		if vals.has_key('prefix'):      self.prefix      = vals['prefix']
- 		if vals.has_key('first_name'):  self.first_name  = vals['first_name']
- 		if vals.has_key('middle_name'): self.middle_name = vals['middle_name']
+		if vals.has_key('prefix'):      self.prefix      = vals['prefix']
+		if vals.has_key('first_name'):  self.first_name  = vals['first_name']
+		if vals.has_key('middle_name'): self.middle_name = vals['middle_name']
 		if vals.has_key('last_name'):   self.last_name   = vals['last_name']
- 		if vals.has_key('suffix'):      self.suffix      = vals['suffix']
+		if vals.has_key('suffix'):      self.suffix      = vals['suffix']
 		if vals.has_key('sex'):         self.sex         = vals['sex']         
 		if vals.has_key('birth_date'):  self.birth_date  = vals['birth_date']  
 		if vals.has_key('death_date'):  self.death_date  = vals['death_date']  
