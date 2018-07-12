@@ -45,7 +45,6 @@ class BasePage(object):
 			except SelExc.NoSuchElementException:
 				d = None
 			
-			##print("Key:", h, "; Value:", d)
 			vals.append((h, d))
 
 		return vals
@@ -73,6 +72,7 @@ class BasePage(object):
 				return d
 
 		return None  # header text was not found
+
 	# Click on a link
 	#   parameter: link_obj is a selenium object which can be clicked on.
 	#     assumes link opens another page
@@ -184,6 +184,9 @@ class ArticlePage(BasePage):
 
 	article_header = (By.ID, 'firstHeading')
 	infobox = (By.CSS_SELECTOR, 'table.infobox')
+	toc_box = (By.ID, 'toc')
+	toc_item = (By.CLASS_NAME, 'toctext')
+	headline = (By.CLASS_NAME, 'mw-headline')
 
 	def get_article_header(self):
 		return self.driver.find_element(*ArticlePage.article_header).text
@@ -214,6 +217,15 @@ class ArticlePage(BasePage):
 				return item[1]
 		return None
 
+	def get_toc_items_text(self):
+		toc = self.driver.find_element(*ArticlePage.toc_box)
+		toc_items = toc.find_elements(*ArticlePage.toc_item)
+		return [ item.text for item in toc_items ]
+
+	def get_headlines_text(self):
+		headlines = self.driver.find_elements(*ArticlePage.headline)
+		return [ headline.text for headline in headlines ]
+
 class MainPage(BasePage):
 
 	main_page_url = "https://en.wikipedia.org/wiki/Main_Page"
@@ -221,4 +233,10 @@ class MainPage(BasePage):
 
 	def open_main_page(self):
 		self.driver.get(self.main_page_url)
+
+	def open_article_by_search(self, search_term):
+		self.open_main_page()
+		self.enter_header_search_term(search_term)
+		self.submit_header_search()
+
 
